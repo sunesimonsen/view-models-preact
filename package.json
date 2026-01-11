@@ -1,0 +1,64 @@
+{
+  "name": "@view-models/preact",
+  "version": "0.1.0",
+  "description": "Preact integration for @view-models/core",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "preact",
+    "hooks",
+    "view-models",
+    "state-management"
+  ],
+  "author": "Sune Simonsen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunesimonsen/view-models-preact.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sunesimonsen/view-models-preact/issues"
+  },
+  "homepage": "https://github.com/sunesimonsen/view-models-preact#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "@view-models/core": "^1.1.0",
+    "preact": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/preact": "^3.2.4",
+    "@view-models/core": "^1.1.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "jsdom": "^26.0.0",
+    "preact": "^10.26.1",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
