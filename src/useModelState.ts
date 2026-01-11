@@ -1,5 +1,41 @@
-import type { ViewModel, State } from "@view-models/core";
 import { useEffect, useState } from "preact/hooks";
+
+/**
+ * Function that gets called when the state changes.
+ *
+ * @template T - The state type
+ * @param state - The new state
+ */
+export type ViewModelListener = () => void;
+
+export interface ViewModel<T> {
+  /**
+   * Subscribe to state changes.
+   *
+   * The listener will be called immediately after any state update.
+   *
+   * @param listener - Function to call when state changes
+   * @returns Function to unsubscribe the listener
+   *
+   * @example
+   * ```typescript
+   * const unsubscribe = viewModel.subscribe((state) => {
+   *   console.log('State changed:', state);
+   * });
+   *
+   * // Later, when you want to stop listening:
+   * unsubscribe();
+   * ```
+   */
+  subscribe(listener: ViewModelListener): () => void;
+
+  /**
+   * Get the current state.
+   *
+   * @returns The current state
+   */
+  get state(): T;
+}
 
 /**
  * A Preact hook that subscribes a component to a ViewModel's state updates.
@@ -30,13 +66,13 @@ import { useEffect, useState } from "preact/hooks";
  * }
  * ```
  */
-export function useModelState<T extends State>(model: ViewModel<T>): T {
+export function useModelState<T>(model: ViewModel<T>): T {
   const [state, setState] = useState<T>(model.state);
 
   useEffect(
     () =>
-      model.subscribe((newState) => {
-        setState(newState);
+      model.subscribe(() => {
+        setState(model.state);
       }),
     [model],
   );
